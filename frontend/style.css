@@ -69,8 +69,11 @@ button:hover {
 
 /* --- ESTILO PARA LAS CARTAS (ARREGLO PRINCIPAL) --- */
 .carta {
-    width: 85px;
-    height: 130px;
+    width: 85px !important;
+    height: 130px !important;
+    min-width: 85px;
+    min-height: 130px;
+    flex: 0 0 85px; /* Evita que el contenedor flexible aplaste la carta */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -80,11 +83,9 @@ button:hover {
     transition: transform 0.2s, box-shadow 0.2s;
     display: inline-block;
     margin: 5px;
-    /* IMPORTANTE: Eliminamos fondos sólidos o bordes gruesos */
-    background-color: transparent;
-    border: none;
+    background-color: white; /* Respaldo blanco para que la carta tenga forma visible */
+    border: 1px solid #ccc;
 }
-
 .carta:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
