@@ -1,4 +1,4 @@
-const socket = io("http://localhost:8000");
+const socket = io("https://roba-pilon-web.onrender.com/");
 
 const btnConectar = document.getElementById("btn-conectar");
 const pantallaLogin = document.getElementById("pantalla-login");
