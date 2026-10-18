@@ -1,7 +1,10 @@
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* Fondo de la mesa usando tu imagen */
+}
+
+body {
     background-image: url('assets/fondo.png');
     background-size: cover;
     background-position: center;
@@ -9,30 +12,45 @@ body {
     background-attachment: fixed;
     font-family: Arial, sans-serif;
     color: white;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    overflow: hidden;
 }
 
 .oculto {
     display: none !important;
 }
 
-#pantalla-login, #pantalla-juego {
-    background: rgba(0, 0, 0, 0.75);
+/* Pantalla de login (inicio) */
+#pantalla-login {
+    background: rgba(0, 0, 0, 0.85);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
     text-align: center;
-    max-width: 800px;
+    max-width: 500px;
     width: 100%;
+}
+
+/* --- PANTALLA DE JUEGO (Mesa principal) --- */
+#pantalla-juego {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    /* Eliminamos cualquier fondo sólido aquí */
+    background: transparent;
 }
 
 input, select, button {
     padding: 10px;
-    margin: 10px 0;
-    font-size: 16px;
+    margin: 8px 0;
+    font-size: 15px;
     border-radius: 6px;
     border: 1px solid #ccc;
 }
@@ -49,55 +67,60 @@ button:hover {
     background-color: #218838;
 }
 
-/* Estilo base para las cartas basadas en tus imágenes */
+/* --- ESTILO PARA LAS CARTAS (ARREGLO PRINCIPAL) --- */
 .carta {
-    width: 90px;
-    height: 140px;
+    width: 85px;
+    height: 130px;
     background-size: cover;
     background-position: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     display: inline-block;
     margin: 5px;
-    background-color: white; /* Respaldo por si carga lento */
+    /* IMPORTANTE: Eliminamos fondos sólidos o bordes gruesos */
+    background-color: transparent;
+    border: none;
 }
 
 .carta:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
 }
 
-/* Carta con el reverso (para oponentes o mazo) */
-.carta-reverso {
-    width: 90px;
-    height: 140px;
-    background-image: url('assets/reverso.png');
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    display: inline-block;
-    margin: 5px;
-}
-
+/* Contenedores traslúcidos y elegantes sobre la mesa */
 .mesa-container, .mano-container, #area-oponentes {
-    margin: 15px 0;
+    margin: 5px 0;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    min-height: 150px;
+    /* Hacemos los fondos de los contenedores muy sutiles */
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    min-height: 140px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    backdrop-filter: blur(1px); /* Ligero desenfoque para resaltar cartas */
 }
 
+/* Mantenemos un fondo sutil para info de oponentes */
 .oponente-card {
+    background: rgba(0, 0, 0, 0.65);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    min-width: 130px;
+}
+
+.info-bar {
     background: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    border-radius: 6px;
-    border: 2px solid transparent;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
