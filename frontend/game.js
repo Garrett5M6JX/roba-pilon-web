@@ -36,10 +36,8 @@ function renderizarCartas(contenedor, listaCartas, esManoPropia = false) {
         const div = document.createElement("div");
         div.className = "carta";
         
-        div.innerHTML = `
-            <span class="valor">${c.valor}</span>
-            <span class="palo">${c.palo}</span>
-        `;
+        // Carga automática usando tus nombres exactos: basto_1, copa_12, oro_5, espada_3, etc.
+        div.style.backgroundImage = `url('assets/${c.palo}_${c.valor}.png')`;
         
         if (esManoPropia) {
             div.addEventListener("click", () => {
@@ -58,10 +56,7 @@ socket.on("actualizar_estado", (estado) => {
     estado.mesa.forEach(c => {
         const div = document.createElement("div");
         div.className = "carta";
-        div.innerHTML = `
-            <span class="valor">${c.valor}</span>
-            <span class="palo">${c.palo}</span>
-        `;
+        div.style.backgroundImage = `url('assets/${c.palo}_${c.valor}.png')`;
         cartasMesa.appendChild(div);
     });
 
