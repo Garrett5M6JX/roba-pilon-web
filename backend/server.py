@@ -2,11 +2,20 @@ import random
 import socketio
 from fastapi import FastAPI
 
-# Socket.io maneja los orígenes permitidos directamente para evitar duplicar cabeceras
-sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
-app = FastAPI()
+# Definimos los orígenes permitidos de forma estricta (sin asteriscos)
+allowed_origins = [
+    "https://roba-pilon-web-frontend.vercel.app",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+]
 
-# Eliminamos CORSMiddleware de FastAPI para evitar el conflicto de múltiples valores
+# Configuramos Socket.io con la lista exacta para evitar duplicar cabeceras
+sio = socketio.AsyncServer(
+    async_mode='asgi', 
+    cors_allowed_origins=allowed_origins
+)
+
+app = FastAPI()
 
 app.mount("/", socketio.ASGIApp(sio))
 
