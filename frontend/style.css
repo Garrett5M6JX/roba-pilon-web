@@ -1,5 +1,5 @@
 body {
-    background-color: #1a0f2e;
+    background: radial-gradient(circle at center, #2c164a 0%, #120a1c 100%);
     color: #fff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -7,49 +7,158 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
+
 .panel {
-    background: #28143d;
-    padding: 30px;
-    border-radius: 15px;
-    border: 2px solid #f0be3c;
+    background: rgba(20, 10, 35, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    border: 3px solid #f0be3c;
     text-align: center;
-    width: 320px;
+    width: 380px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
+
 .oculto { display: none !important; }
+
+h1 {
+    color: #f0be3c;
+    margin-bottom: 5px;
+    font-size: 28px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #dcd7eb;
+    font-weight: bold;
+}
+
 input, select, button {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1px solid #77459b;
+    background-color: #28143d;
+    color: white;
     font-size: 16px;
     box-sizing: border-box;
+    outline: none;
 }
+
+input:focus, select:focus {
+    border-color: #f0be3c;
+}
+
 button {
-    background-color: #501864;
-    color: white;
+    background: linear-gradient(to bottom, #7a229c, #501864);
     border: 2px solid #f0be3c;
     cursor: pointer;
     font-weight: bold;
+    margin-top: 20px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-button:hover { background-color: #82249b; }
-#pantalla-juego { width: 900px; height: 600px; display: flex; flex-direction: column; justify-content: space-between; background: #120a1c; padding: 20px; border-radius: 15px; border: 2px solid #f0be3c;}
-.flex-container { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.carta {
-    width: 70px;
-    height: 100px;
-    background: white;
-    color: black;
-    border-radius: 8px;
+
+button:hover {
+    background: linear-gradient(to bottom, #9a2cb5, #682084);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(240, 190, 60, 0.3);
+}
+
+#pantalla-juego {
+    width: 900px;
+    height: 620px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    background: rgba(18, 10, 28, 0.9);
+    padding: 20px;
+    border-radius: 18px;
+    border: 3px solid #f0be3c;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
+#hud {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(10, 5, 20, 0.6);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #77459b;
+    font-weight: bold;
+    color: #f0be3c;
+}
+
+.flex-container {
+    display: flex;
+    gap: 12px;
     justify-content: center;
+    flex-wrap: wrap;
+    min-height: 110px;
     align-items: center;
+}
+
+.carta {
+    width: 75px;
+    height: 110px;
+    background: #ffffff;
+    color: #1a0f2e;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
     font-weight: bold;
     cursor: pointer;
-    border: 2px solid #333;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    border: 2px solid #ccc;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    position: relative;
 }
-.carta:hover { transform: translateY(-5px); border-color: #f0be3c; }
-.zona-cartas { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; min-height: 120px; }
+
+.carta:hover {
+    transform: translateY(-8px);
+    border-color: #f0be3c;
+    box-shadow: 0 10px 20px rgba(240, 190, 60, 0.4);
+}
+
+.carta .valor {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.carta .palo {
+    font-size: 13px;
+    align-self: flex-end;
+}
+
+.zona-cartas {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px dashed rgba(240, 190, 60, 0.3);
+}
+
+.zona-cartas h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #dcd7eb;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.oponente-card {
+    background: rgba(40, 20, 61, 0.8);
+    border: 1px solid #f0be3c;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+}
