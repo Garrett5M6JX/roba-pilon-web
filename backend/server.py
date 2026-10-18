@@ -1,7 +1,3 @@
-<ElicitationsGroup>
-Aquí tienes el archivo `server.py` completo y actualizado, con el bloque conflictivo de FastAPI eliminado para que solo Socket.io maneje los permisos de CORS de forma limpia y sin duplicidades:
-
-```python
 import random
 import socketio
 from fastapi import FastAPI
