@@ -3,22 +3,35 @@ import socketio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
+# Configuramos Socket.io permitiendo el origen específico de tu frontend en Vercel
+sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[
+    "https://roba-pilon-web-frontend.vercel.app",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+])
+
 app = FastAPI()
+
+# Configuramos FastAPI CORS limpiamente sin comodines conflictivos
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://roba-pilon-web-frontend.vercel.app",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 app.mount("/", socketio.ASGIApp(sio))
 
 partidas = {}
 
 class Carta:
     def __init__(self, palo, valor):
-        self.palo = palo
+        self.palo = palo  # 'basto', 'oro', 'espada', 'copa' en minúsculas
         self.valor = valor
 
     def obtener_siguiente(self):
@@ -34,7 +47,8 @@ class Carta:
 class Mazo:
     def __init__(self):
         self.cartas = []
-        palos = ["Oros", "Copas", "Espadas", "Bastos"]
+        # Nombres en minúsculas para que coincidan perfectamente con tus archivos: basto_1.png, etc.
+        palos = ["basto", "oro", "espada", "copa"]
         valores = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12]
         self.cartas = [Carta(palo, valor) for palo in palos for valor in valores]
         random.shuffle(self.cartas)
@@ -113,6 +127,9 @@ async def crear_o_unirse(sid, data):
         
     partida = partidas[room_id]
     
+    # Evitar duplicar conexión si el usuario recarga
+    partida.jugadores = [j for j in partida.jugadores if j["id"] != sid]
+    
     partida.jugadores.append({
         "id": sid,
         "nombre": nombre,
@@ -134,7 +151,7 @@ async def crear_o_unirse(sid, data):
                 "pilon": []
             })
             
-    if len(partida.jugadores) >= num_jugadores:
+    if len(partida.jugadores) >= num_jugadores and not partida.mesa and len(partida.mazo.cartas) == 40:
         partida.inicializar()
         
     await sio.emit('actualizar_estado', partida.obtener_estado(), room=room_id)
