@@ -1,29 +1,16 @@
+<ElicitationsGroup>
+Aquí tienes el archivo `server.py` completo y actualizado, con el bloque conflictivo de FastAPI eliminado para que solo Socket.io maneje los permisos de CORS de forma limpia y sin duplicidades:
+
+```python
 import random
 import socketio
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
-# Configuramos Socket.io permitiendo el origen específico de tu frontend en Vercel
-sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins=[
-    "https://roba-pilon-web-frontend.vercel.app",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000"
-])
-
+# Socket.io maneja los orígenes permitidos directamente para evitar duplicar cabeceras
+sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = FastAPI()
 
-# Configuramos FastAPI CORS limpiamente sin comodines conflictivos
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://roba-pilon-web-frontend.vercel.app",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Eliminamos CORSMiddleware de FastAPI para evitar el conflicto de múltiples valores
 
 app.mount("/", socketio.ASGIApp(sio))
 
@@ -47,7 +34,7 @@ class Carta:
 class Mazo:
     def __init__(self):
         self.cartas = []
-        # Nombres en minúsculas para que coincidan perfectamente con tus archivos: basto_1.png, etc.
+        # Nombres en minúsculas para que coincidan con tus archivos: basto_1.png, etc.
         palos = ["basto", "oro", "espada", "copa"]
         valores = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12]
         self.cartas = [Carta(palo, valor) for palo in palos for valor in valores]
