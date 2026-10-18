@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roba Pilón - Versión Web Multijugador</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <div id="pantalla-login" class="panel">
+        <h1>ROBA PILÓN WEB</h1>
+        <p>Configura tu partida</p>
+        <input type="text" id="input-nombre" placeholder="Tu Nombre" value="Gregory">
+        <label>Cantidad de Jugadores:</label>
+        <select id="select-num-jugadores">
+            <option value="2">2 Jugadores</option>
+            <option value="3">3 Jugadores</option>
+            <option value="4">4 Jugadores</option>
+        </select>
+        <label>Modo de Oponentes:</label>
+        <select id="select-modo">
+            <option value="true">Contra Inteligencia Artificial (IA)</option>
+            <option value="false">Multijugador</option>
+        </select>
+        <button id="btn-conectar">Entrar al Juego</button>
+    </div>
+
+    <div id="pantalla-juego" class="oculto">
+        <header id="hud">
+            <span id="info-turno">Turno de: ...</span>
+            <span id="info-mazo">Mazo: 40</span>
+        </header>
+        <div id="area-oponentes" class="flex-container"></div>
+        <div id="mesa" class="zona-cartas"><h3>Mesa</h3><div id="cartas-mesa" class="flex-container"></div></div>
+        <div id="mi-mano" class="zona-cartas"><h3>Tus Cartas (Haz clic para jugar)</h3><div id="cartas-mano" class="flex-container"></div></div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
